@@ -1,29 +1,62 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons'; 
+
 import HomeScreen from './screens/HomeScreen';
-import ParticipantAForm from './screens/ParticipantAForm';
-import ParticipantBForm from './screens/ParticipantBForm';
+import ParticipantAScreen from './screens/ParticipantAForm';
+import ParticipantBScreen from './screens/ParticipantBForm';
 import DamageScreen from './screens/DamageScreen';
 
-export type RootStackParamList = {
-  Home: undefined;
-  ParticipantA: undefined;
-  ParticipantB: undefined;
-  Damage: undefined;
-};
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Європротокол' }} />
-        <Stack.Screen name="ParticipantA" component={ParticipantAForm} options={{ title: 'Учасник A' }} />
-        <Stack.Screen name="ParticipantB" component={ParticipantBForm} options={{ title: 'Учасник B' }} />
-        <Stack.Screen name="Damage" component={DamageScreen} options={{ title: 'Пошкодження' }} />
-      </Stack.Navigator>
+      <Tab.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="ParticipantA"
+          component={ParticipantAScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="ParticipantB"
+          component={ParticipantBScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Damage"
+          component={DamageScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="warning" size={size} color={color} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
